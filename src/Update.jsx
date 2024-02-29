@@ -1,27 +1,39 @@
+import React from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
-import { apiPostNoticeWrite } from "./api";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { apiPostNoticeUpdate } from "./api";
 
-export default function Write() {
+export default function Update() {
+  const {
+    state: { title, writer, description, _id: id },
+  } = useLocation();
+
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      title,
+      writer,
+      description,
+    },
+  });
 
-  const { mutate, isLoading } = useMutation(apiPostNoticeWrite, {
+  const { mutate, isLoading } = useMutation(apiPostNoticeUpdate, {
     onSuccess: (data) => {
       console.log(data);
-      reset();
+      reset(); //작성된 내용 reset
       navigate("/");
     },
   });
 
   const onSubmit = (formData) => {
-    mutate(formData);
+    mutate({ formData, id });
   };
 
   return (
@@ -32,27 +44,27 @@ export default function Write() {
       >
         <input
           {...register("title", {
-            required: "제목은 필수 입력요소입니다!",
+            required: "제목을 작성해주세요.",
           })}
-          className="py-1 px-2 border"
+          className=" py-1 px-2 border"
           type="text"
-          placeholder="title"
+          placeholder="TITLE"
         />
         {errors?.title?.message && (
-          <div className="text-red-500 text-sm px-2">
+          <div className="text-red-500 text-sm px-2 -mt-4">
             {errors?.title?.message}
           </div>
         )}
         <input
           {...register("writer", {
-            required: "글쓴이는 필수 입력요소입니다.",
+            required: "글쓴이를 작성해주세요.",
           })}
-          className="py-1 px-2 border"
+          className=" py-1 px-2 border"
           type="text"
-          placeholder="writer"
+          placeholder="WRITER"
         />
         {errors?.writer?.message && (
-          <div className="text-red-500 text-sm px-2">
+          <div className="text-red-500 text-sm px-2 -mt-4">
             {errors?.writer?.message}
           </div>
         )}
@@ -60,21 +72,19 @@ export default function Write() {
           rows="10"
           className="py-1 px-2 border"
           type="text"
-          placeholder="description"
+          placeholder="DESCRIPTION"
           {...register("description", {
-            required: "내용은 필수 입력요소입니다.",
             minLength: {
               value: 5,
-              message: "내용은 최소 5글자 이상이어야 합니다!",
+              message: "내용은 최소 5글자 이상 작성해주세요.",
             },
           })}
         ></textarea>
         {errors?.description?.message && (
-          <div className="text-red-500 text-sm px-2">
+          <div className="text-red-500 text-sm px-2 -mt-4">
             {errors?.description?.message}
           </div>
         )}
-
         <button
           disabled={isLoading}
           type="submit"

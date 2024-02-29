@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import List from "./List";
 import Write from "./Write";
 import Detail from "./Detail";
+import Update from "./Update";
 
 //
 const router = createBrowserRouter([
@@ -19,8 +20,9 @@ const router = createBrowserRouter([
   },
   {
     path: "/:id",
-    element: <Detail/>,
-  }
+    element: <Detail />,
+  },
+  { path: "/:id/edit", element: <Update /> },
 ]);
 
 //
