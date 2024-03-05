@@ -14,9 +14,9 @@ export default function Update() {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm({
+    // defaultValues를 넣어주면 작성내용이 기본값으로 나옴
     defaultValues: {
       title,
       writer,
@@ -27,12 +27,12 @@ export default function Update() {
   const { mutate, isLoading } = useMutation(apiPostNoticeUpdate, {
     onSuccess: (data) => {
       console.log(data);
-      reset(); //작성된 내용 reset
-      navigate("/");
+      navigate(`/${id}`);
     },
   });
 
   const onSubmit = (formData) => {
+    // console.log(formData)
     mutate({ formData, id });
   };
 

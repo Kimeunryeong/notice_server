@@ -39,8 +39,6 @@ export async function apiPostNoticeWrite(formData) {
   }
 }
 
-
-
 // 공지사항 업데이트
 export async function apiPostNoticeUpdate(props) {
   const { formData, id } = props;
@@ -52,6 +50,20 @@ export async function apiPostNoticeUpdate(props) {
       },
       body: JSON.stringify(formData),
     }).then((res) => res.json());
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// 공지사항 삭제
+export async function apiPostNoticeDelete(id) {
+  try {
+    fetch(`${BASE_URL}/notice/${id}/delete`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res)=> res.json());
   } catch (error) {
     console.log(error);
   }
