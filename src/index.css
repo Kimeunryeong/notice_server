@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  a {
+    @apply hover:text-blue-500 hover:font-semibold hover:underline transition duration-300;
+  }
+}
+
+@layer components {
+  .input-custom {
+    @apply h-10 px-4 rounded-md border-none ring-1 ring-neutral-200 bg-transparent focus:outline-none focus:ring-4 focus:ring-blue-400 transition duration-300;
+  }
+  .label-custom {
+    @apply absolute text-sm text-neutral-400 -translate-y-4 top-1 left-3 z-10 bg-white px-2 origin-[0] peer-placeholder-shown:-translate-y-1/2 
+        peer-placeholder-shown:top-5 peer-placeholder-shown:-z-10 duration-300 peer-focus:-translate-y-4 peer-focus:top-1 peer-focus:left-3 peer-focus:z-10 peer-focus:text-blue-400
+        peer-focus:scale-75;
+  }
+}
