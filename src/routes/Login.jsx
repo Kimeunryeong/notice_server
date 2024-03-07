@@ -2,9 +2,11 @@ import { Link } from "react-router-dom";
 import InputBox from "../components/InputBox";
 import Button from "../components/Button";
 import Socials from "./Socials";
+import { useForm } from "react-hook-form";
 
 
 export default function LogIn() {
+  const {register} = useForm()
   return (
     <div className="w-full flex justify-center py-16">
       <div className="max-w-screen-sm w-full flex flex-col gap-8 px-4">
@@ -18,9 +20,9 @@ export default function LogIn() {
         {/* 로그인 form 영역 */}
         <div className="flex flex-col gap-4">
           {/* 아이디 */}
-          <InputBox name="username" type="text" placeholder="아이디" />
+          <InputBox register={register} name="username" type="text" placeholder="아이디" />
           {/* 비밀번호 */}
-          <InputBox name="password" type="password" placeholder="패스워드" />
+          <InputBox register={register} name="password" type="password" placeholder="패스워드" />
           {/* 버튼 */}
           <Button type="submit" text="로그인" />
         </div>
